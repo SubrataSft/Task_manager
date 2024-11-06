@@ -32,107 +32,108 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       body: BackgroundWidget(
           child: SingleChildScrollView(
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 60,
-                      ),
-                      Text(
-                        "Get Started with",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      TextFormField(
-                        controller: _emailTEController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: const InputDecoration(hintText: "Email"),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (String? value) {
-                          if (value?.trim().isEmpty ?? true) {
-                            return "Enter your email";
-                          }
-                          if (AppConstants.emailRegExp.hasMatch(value!) == false) {
-                            return "Enter a valid address";
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: _passwordTEController,
-                        decoration: const InputDecoration(hintText: "Password"),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (String? value) {
-                          if (value?.trim().isEmpty ?? true) {
-                            return "Enter your password";
-                          }
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 60,
+                  ),
+                  Text(
+                    "Get Started with",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  TextFormField(
+                    controller: _emailTEController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(hintText: "Email"),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return "Enter your email";
+                      }
+                      if (AppConstants.emailRegExp.hasMatch(value!) == false) {
+                        return "Enter a valid address";
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    obscureText: true,
+                    controller: _passwordTEController,
+                    decoration: const InputDecoration(hintText: "Password"),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (String? value) {
+                      if (value?.trim().isEmpty ?? true) {
+                        return "Enter your password";
+                      }
 
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Visibility(
-                        visible: _signInApiInProgress == false,
-                        replacement: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        child: ElevatedButton(
-                          onPressed: _onTapNextButton,
-                          child: const Icon(Icons.arrow_circle_right),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 35,
-                      ),
-                      TextButton(
-                        onPressed: _onTapForgotPasswordButton,
-                        child: const Text(
-                          "Password forgotten",
-                        ),
-                      ),
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Visibility(
+                    visible: _signInApiInProgress == false,
+                    replacement: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: _onTapNextButton,
+                      child: const Icon(Icons.arrow_circle_right),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 35,
+                  ),
+                  TextButton(
+                    onPressed: _onTapForgotPasswordButton,
+                    child: const Text(
+                      "Password forgotten",
+                    ),
+                  ),
+                  Column(
+                    children: [
                       Column(
                         children: [
-                          Column(
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6),
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 0.4),
-                                  text: "Don't have an account? ",
-                                  children: [
-                                    TextSpan(
-                                        text: "Sign up",
-                                        style: const TextStyle(
-                                            color: AppColors.themeColor),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = _onTapSignUpButton),
-                                  ],
-                                ),
-                              ),
-                            ],
+                          RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 0.4),
+                              text: "Don't have an account? ",
+                              children: [
+                                TextSpan(
+                                    text: "Sign up",
+                                    style: const TextStyle(
+                                        color: AppColors.themeColor),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = _onTapSignUpButton),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
             ),
-          )),
+          ),
+        ),
+      )),
     );
   }
 
@@ -142,38 +143,43 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
-  Future<void> _signUp()async{
+  Future<void> _signUp() async {
     _signInApiInProgress = true;
-    if(mounted) {
+    if (mounted) {
       setState(() {});
     }
-    Map<String,dynamic> requestData = {
-      "email":_emailTEController.text.trim(),
-      "password":_passwordTEController.text
+    Map<String, dynamic> requestData = {
+      "email": _emailTEController.text.trim(),
+      "password": _passwordTEController.text
     };
 
     final NetworkResponse response =
-    await NetworkCaller.postRequest(Urls.login,body: requestData);
+        await NetworkCaller.postRequest(Urls.login, body: requestData);
     _signInApiInProgress = false;
-    if(mounted) {
+    if (mounted) {
       setState(() {});
     }
 
-
     if (response.isSuccess) {
-      LoginModel loginModel =LoginModel.fromJson(response.responseData);
+      LoginModel loginModel = LoginModel.fromJson(response.responseData);
       await AuthController.saveUserAccessToken(loginModel.token!);
       await AuthController.saveUserData(loginModel.userModel!);
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MainBottomNavScreen(),
-        ),
-      );
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MainBottomNavScreen(),
+          ),
+        );
+      }
     } else {
-      showSnackBarMessage(
-          context, response.errorMessage ?? "Email/Password not correct. try again");
+      if (mounted) {
+        showSnackBarMessage(
+          context,
+          response.errorMessage ?? "Email/Password not correct. try again",
+        );
+      }
     }
   }
 

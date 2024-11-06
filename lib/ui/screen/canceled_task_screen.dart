@@ -15,7 +15,7 @@ class _CanceledTaskScreenState extends State<CanceledTaskScreen> {
       body: ListView.builder(
         itemCount: 6,
         itemBuilder: (context, index) {
-          return const TaskItem();
+          // return const TaskItem();
         },
       ),
     );
