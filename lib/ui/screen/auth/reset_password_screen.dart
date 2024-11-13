@@ -37,7 +37,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Text(
-                  "Minimun length password 8 character with Latter and number combination",
+                  "Minimum length password 8 character with Latter and number combination",
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 const SizedBox(

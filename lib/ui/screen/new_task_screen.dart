@@ -42,7 +42,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             ),
             Expanded(
               child: RefreshIndicator(
-                onRefresh: ()async{
+                onRefresh: () async {
                   _getNewTask();
                 },
                 child: Visibility(
@@ -123,7 +123,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       }
     }
     _getNewTaskInProgress = false;
-    if(mounted){
+    if (mounted) {
       setState(() {});
     }
   }
